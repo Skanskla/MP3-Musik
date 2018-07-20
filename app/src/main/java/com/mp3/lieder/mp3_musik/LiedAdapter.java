@@ -41,8 +41,8 @@ public class LiedAdapter extends BaseAdapter {
         LinearLayout lay = (LinearLayout) liedinf.inflate(R.layout.lied, parent,false);
 
 
-        TextView titelV = (TextView) lay.findViewById(R.id.sec_titel);
-        TextView interpretV=(TextView)lay.findViewById(R.id.sec_interpret);
+        TextView titelV = lay.findViewById(R.id.sec_titel);
+        TextView interpretV= lay.findViewById(R.id.sec_interpret);
 
 
 

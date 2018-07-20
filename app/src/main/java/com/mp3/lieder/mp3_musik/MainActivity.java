@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         listViewTitel = findViewById(R.id.lieder_liste);
         liedListe= new ArrayList<Lied>();
+
         findeLieder();
 
         Collections.sort(liedListe, new Comparator<Lied>(){
