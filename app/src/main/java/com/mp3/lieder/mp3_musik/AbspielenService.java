@@ -58,7 +58,7 @@ public class AbspielenService extends Service implements
             player.setDataSource(getApplicationContext(), track);
         }
         catch(Exception e){
-            Log.e("MUSIC SERVICE", "Fehler", e);
+            Log.e("MUSIC SERVICE", "Error setting data source", e);
         }
         player.prepareAsync();
     }
