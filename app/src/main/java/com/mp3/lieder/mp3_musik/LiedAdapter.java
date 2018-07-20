@@ -2,6 +2,9 @@ package com.mp3.lieder.mp3_musik;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -41,6 +44,8 @@ public class LiedAdapter extends BaseAdapter {
         LinearLayout lay = (LinearLayout) liedinf.inflate(R.layout.lied, parent,false);
 
 
+        MenuItem butShuffle=lay.findViewById(R.id.shuffle);
+        MenuItem butStopp=lay.findViewById(R.id.stop);
         TextView titelV = lay.findViewById(R.id.sec_titel);
         TextView interpretV= lay.findViewById(R.id.sec_interpret);
 

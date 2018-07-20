@@ -15,6 +15,8 @@ import java.util.Comparator;
 import android.net.Uri;
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.ListView;
 import android.os.IBinder;
 import android.content.ComponentName;
@@ -44,11 +46,12 @@ public class MainActivity extends Activity implements MediaPlayerControl {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         listViewTitel = findViewById(R.id.lieder_liste);
         liedListe= new ArrayList<Lied>();
 
         findeLieder();
-        //setzeKontroller();
+        setzeKontroller();
 
         Collections.sort(liedListe, new Comparator<Lied>(){
             public int compare(Lied a, Lied b){
@@ -124,7 +127,7 @@ public class MainActivity extends Activity implements MediaPlayerControl {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.shuffle:
-                //shuffle
+                absService.setzeShuffle();
                 break;
             case R.id.stop:
                 stopService(absIntent);
@@ -135,26 +138,27 @@ public class MainActivity extends Activity implements MediaPlayerControl {
         return super.onOptionsItemSelected(item);
     }
 
-   /* private void setzeKontroller(){
+    private void setzeKontroller(){
         steuerung=new MusikSteuerung(this);
         steuerung.setPrevNextListeners(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playNext();
+                spieleNext();
             }
         }, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playPrev();
+                spielePrev();
             }
         });
         steuerung.setMediaPlayer(this);
         steuerung.setAnchorView(findViewById(R.id.lieder_liste));
         steuerung.setEnabled(true);
-    }*/
+    }
 
     @Override
     protected void onDestroy() {
+        unbindService(musikCon);
         stopService(absIntent);
         absService=null;
         super.onDestroy();
@@ -162,31 +166,39 @@ public class MainActivity extends Activity implements MediaPlayerControl {
 
     @Override
     public void start() {
-
+    absService.los();
     }
 
     @Override
     public void pause() {
-
+        absService.pause();
     }
 
     @Override
     public int getDuration() {
-        return 0;
+        if(absService!=null && musikB && absService.spielt())
+        return absService.getDauer();
+        else return 0;
     }
+
 
     @Override
     public int getCurrentPosition() {
-        return 0;
+        if ( absService != null && musikB && absService.spielt())
+        return absService.getPos();
+        else return 0;
     }
 
     @Override
     public void seekTo(int pos) {
-
+    absService.bar(pos);
     }
+
 
     @Override
     public boolean isPlaying() {
+        if(absService!=null && musikB)
+        return absService.spielt();
         return false;
     }
 
@@ -197,21 +209,33 @@ public class MainActivity extends Activity implements MediaPlayerControl {
 
     @Override
     public boolean canPause() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean canSeekBackward() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean canSeekForward() {
-        return false;
+        return true;
     }
 
     @Override
     public int getAudioSessionId() {
         return 0;
     }
+    //play next
+    private void spieleNext(){
+        absService.spieleNext();
+        steuerung.show(0);
+    }
+
+    //play previous
+    private void spielePrev(){
+        absService.spielePrev();
+        steuerung.show(0);
+    }
+
 }

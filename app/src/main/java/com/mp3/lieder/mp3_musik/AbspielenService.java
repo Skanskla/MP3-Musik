@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
 
@@ -23,12 +24,16 @@ public class AbspielenService extends Service implements
     private ArrayList <Lied> lieder;
     private int posLieder;
     private final IBinder musB= new MusikBinder();
+    private boolean shuffle=false;
+    private Random rdm;
 
     public void onCreate(){
+
         super.onCreate();
         posLieder=0;
         player=new MediaPlayer();
         initPlayer();
+        rdm=new Random();
     }
     public void initPlayer(){
         player.setWakeMode(getApplicationContext(), PARTIAL_WAKE_LOCK);
@@ -116,5 +121,27 @@ public class AbspielenService extends Service implements
         player.start();
     }
 
+    public void spielePrev(){
+        posLieder--;
+        if(posLieder<0) posLieder=lieder.size()-1;
+        spieleLied();
+    }
+    public void spieleNext(){
 
+        if(shuffle){
+            int neuLied = posLieder;
+            while(neuLied==posLieder){
+                neuLied=rdm.nextInt(lieder.size());
+            }
+            posLieder=neuLied;
+        }
+        else{
+            posLieder++;
+            if(posLieder>=lieder.size()) posLieder=0;
+        }
+        spieleLied();
+    }
+    public void setzeShuffle(){
+        shuffle = !shuffle;
+    }
 }

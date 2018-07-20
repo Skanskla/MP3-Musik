@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:id="@+id/list_items"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:onClick="gewLied">
+    android:layout_height="match_parent"
+    android:onClick="gewLied"
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/sec_titel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/sec_interpret"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
 
 </LinearLayout>
