@@ -1,7 +1,9 @@
 package com.mp3.lieder.mp3_musik;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,10 +24,10 @@ import android.content.ServiceConnection;
 import android.view.MenuItem;
 import android.view.View;
 import com.mp3.lieder.mp3_musik.AbspielenService.MusikBinder;
-
+import android.widget.MediaController.MediaPlayerControl;
 import static android.Manifest.permission_group.STORAGE;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity implements MediaPlayerControl {
 
     ListView listViewTitel;
     private ArrayList<Lied> liedListe;
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private AbspielenService absService;
     private Intent absIntent;
     private boolean musikB=false;
+
+    private MusikSteuerung steuerung;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         liedListe= new ArrayList<Lied>();
 
         findeLieder();
+        //setzeKontroller();
 
         Collections.sort(liedListe, new Comparator<Lied>(){
             public int compare(Lied a, Lied b){
@@ -129,10 +135,83 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+   /* private void setzeKontroller(){
+        steuerung=new MusikSteuerung(this);
+        steuerung.setPrevNextListeners(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playNext();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playPrev();
+            }
+        });
+        steuerung.setMediaPlayer(this);
+        steuerung.setAnchorView(findViewById(R.id.lieder_liste));
+        steuerung.setEnabled(true);
+    }*/
+
     @Override
     protected void onDestroy() {
         stopService(absIntent);
         absService=null;
         super.onDestroy();
+    }
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public int getDuration() {
+        return 0;
+    }
+
+    @Override
+    public int getCurrentPosition() {
+        return 0;
+    }
+
+    @Override
+    public void seekTo(int pos) {
+
+    }
+
+    @Override
+    public boolean isPlaying() {
+        return false;
+    }
+
+    @Override
+    public int getBufferPercentage() {
+        return 0;
+    }
+
+    @Override
+    public boolean canPause() {
+        return false;
+    }
+
+    @Override
+    public boolean canSeekBackward() {
+        return false;
+    }
+
+    @Override
+    public boolean canSeekForward() {
+        return false;
+    }
+
+    @Override
+    public int getAudioSessionId() {
+        return 0;
     }
 }

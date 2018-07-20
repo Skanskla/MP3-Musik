@@ -92,6 +92,29 @@ public class AbspielenService extends Service implements
         posLieder=liedIndex;
     }
 
+    public int getPos(){
+        return player.getCurrentPosition();
+    }
+
+    public int getDauer(){
+        return player.getDuration();
+    }
+
+    public boolean spielt(){
+        return player.isPlaying();
+    }
+
+    public void pause(){
+        player.pause();
+    }
+
+    public void bar(int pos){
+        player.seekTo(pos);
+    }
+
+    public void los(){
+        player.start();
+    }
 
 
 }
