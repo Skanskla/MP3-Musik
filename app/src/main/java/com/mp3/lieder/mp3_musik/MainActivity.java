@@ -91,10 +91,12 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
                         absService.spieleLied();
                         playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.pause));
                     }
+                    playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.pause));
                     //absService.waehleLied(6);
                     //absService.spieleLied();
 
                 }
+
             }
         });
 
@@ -161,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
         absService.waehleLied(Integer.parseInt(view.getTag().toString()));
         absService.spieleLied();
         lied_pos=Integer.parseInt(view.getTag().toString());
+        playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.pause));
 
     }
     @Override
