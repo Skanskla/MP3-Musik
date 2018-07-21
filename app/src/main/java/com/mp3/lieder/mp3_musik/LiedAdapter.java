@@ -10,8 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.mp3.lieder.mp3_musik.R;
 
 import java.util.ArrayList;
 
@@ -46,17 +49,16 @@ public class LiedAdapter extends BaseAdapter {
         LinearLayout lay = (LinearLayout) liedinf.inflate(R.layout.lied, parent,false);
 
 
-
         TextView titelV = lay.findViewById(R.id.sec_titel);
         TextView interpretV= lay.findViewById(R.id.sec_interpret);
 
         Lied akt = lieder.get(position);
 
-
         titelV.setText(akt.getTitel());
         interpretV.setText(akt.getInterpret());
 
         lay.setTag(position);
+
 
         return lay;
     }

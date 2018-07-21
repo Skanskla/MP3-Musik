@@ -30,11 +30,14 @@ import android.view.View;
 import com.mp3.lieder.mp3_musik.AbspielenService.MusikBinder;
 import android.widget.MediaController.MediaPlayerControl;
 import static android.Manifest.permission_group.STORAGE;
+import com.mp3.lieder.mp3_musik.R;
 
 public class MainActivity extends Activity implements MediaPlayerControl {
 
     ListView listViewTitel;
     private ArrayList<Lied> liedListe;
+    private Button wechsel;
+
 
     private AbspielenService absService;
     private Intent absIntent;
@@ -52,6 +55,8 @@ public class MainActivity extends Activity implements MediaPlayerControl {
         listViewTitel = findViewById(R.id.lieder_liste);
         liedListe= new ArrayList<Lied>();
 
+
+
         findeLieder();
         setzeKontroller();
 
@@ -63,9 +68,18 @@ public class MainActivity extends Activity implements MediaPlayerControl {
         LiedAdapter AnzAdap = new LiedAdapter(liedListe,this);
         listViewTitel.setAdapter(AnzAdap);
 
+        wechsel=findViewById(R.id.wechsel_zu_einzel);
 
+        wechsel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,einzel_wiedergabe.class);
+                startActivity(intent);
+            }
+        });
 
     }
+
 
     private ServiceConnection musikCon = new ServiceConnection() {
         @Override
