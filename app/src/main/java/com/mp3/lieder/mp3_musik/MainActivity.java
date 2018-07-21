@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Button;
 import android.widget.ListView;
 import android.os.IBinder;
 import android.content.ComponentName;
@@ -60,6 +62,8 @@ public class MainActivity extends Activity implements MediaPlayerControl {
         });
         LiedAdapter AnzAdap = new LiedAdapter(liedListe,this);
         listViewTitel.setAdapter(AnzAdap);
+
+
 
     }
 
@@ -121,6 +125,7 @@ public class MainActivity extends Activity implements MediaPlayerControl {
     public void gewLied(View view){
         absService.waehleLied(Integer.parseInt(view.getTag().toString()));
         absService.spieleLied();
+
     }
 
     @Override
@@ -237,5 +242,6 @@ public class MainActivity extends Activity implements MediaPlayerControl {
         absService.spielePrev();
         steuerung.show(0);
     }
+
 
 }

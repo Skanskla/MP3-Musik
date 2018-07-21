@@ -1,6 +1,8 @@
 package com.mp3.lieder.mp3_musik;
 
 import android.content.Context;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -44,12 +46,9 @@ public class LiedAdapter extends BaseAdapter {
         LinearLayout lay = (LinearLayout) liedinf.inflate(R.layout.lied, parent,false);
 
 
-        MenuItem butShuffle=lay.findViewById(R.id.shuffle);
-        MenuItem butStopp=lay.findViewById(R.id.stop);
+
         TextView titelV = lay.findViewById(R.id.sec_titel);
         TextView interpretV= lay.findViewById(R.id.sec_interpret);
-
-
 
         Lied akt = lieder.get(position);
 
