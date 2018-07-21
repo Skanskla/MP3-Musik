@@ -4,23 +4,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/menu_buttons"
     tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/stop"
+        android:icon="@drawable/stopp"
+        android:orderInCategory="3"
+        android:title="End"
+        app:showAsAction="always"
+        android:textColor="#FFFFFF99"/>
     <item
         android:id="@+id/shuffle"
         android:checkable="true"
         android:enabled="true"
         android:icon="@drawable/shuffle"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         android:textColor="#FFFFFF99"
         android:title="Shuffle"
-        android:visible="true"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/stop"
-        android:icon="@drawable/stopp"
-        android:orderInCategory="2"
-        android:title="End"
-        app:showAsAction="always"
-        android:textColor="#FFFFFF99"/>
+        android:visible="true" />
 
 </menu>

@@ -16,6 +16,7 @@ import java.util.Comparator;
 import android.net.Uri;
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Button;
@@ -32,11 +33,14 @@ import android.widget.MediaController.MediaPlayerControl;
 import static android.Manifest.permission_group.STORAGE;
 import com.mp3.lieder.mp3_musik.R;
 
-public class MainActivity extends Activity implements MediaPlayerControl {
+public class MainActivity extends AppCompatActivity implements MediaPlayerControl {
+
+    private Toolbar toolbar;
 
     ListView listViewTitel;
     private ArrayList<Lied> liedListe;
-    private Button wechsel;
+    private Button playbtn;
+
 
 
     private AbspielenService absService;
@@ -51,6 +55,8 @@ public class MainActivity extends Activity implements MediaPlayerControl {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toolbar=findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
 
         listViewTitel = findViewById(R.id.lieder_liste);
         liedListe= new ArrayList<Lied>();
@@ -68,15 +74,21 @@ public class MainActivity extends Activity implements MediaPlayerControl {
         LiedAdapter AnzAdap = new LiedAdapter(liedListe,this);
         listViewTitel.setAdapter(AnzAdap);
 
-        wechsel=findViewById(R.id.wechsel_zu_einzel);
-
-        wechsel.setOnClickListener(new View.OnClickListener() {
+        playbtn=findViewById(R.id.Play);
+        /*playbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,einzel_wiedergabe.class);
-                startActivity(intent);
+                if(absService!=null && musikB){
+                    absService.pause();
+                    playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.play));
+                }else {
+
+
+                    playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.pause));
+                }
             }
-        });
+        });*/
+
 
     }
 
@@ -141,9 +153,18 @@ public class MainActivity extends Activity implements MediaPlayerControl {
         absService.spieleLied();
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
+
+        return true;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.shuffle:
                 absService.setzeShuffle();
