@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     ListView listViewTitel;
     private ArrayList<Lied> liedListe;
     private Button playbtn;
+    private int lied_pos;
 
 
 
@@ -75,19 +76,27 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
         listViewTitel.setAdapter(AnzAdap);
 
         playbtn=findViewById(R.id.Play);
-        /*playbtn.setOnClickListener(new View.OnClickListener() {
+        playbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(absService!=null && musikB){
+                if(absService.spielt()){
                     absService.pause();
                     playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.play));
                 }else {
+                    if(absService.getPos()==lied_pos){
+                        absService.los();
+                        playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.pause));
+                    }else if(absService.getPos()!=lied_pos){
+                        absService.waehleLied(lied_pos);
+                        absService.spieleLied();
+                        playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.pause));
+                    }
+                    //absService.waehleLied(6);
+                    //absService.spieleLied();
 
-
-                    playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.pause));
                 }
             }
-        });*/
+        });
 
 
     }
@@ -151,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     public void gewLied(View view){
         absService.waehleLied(Integer.parseInt(view.getTag().toString()));
         absService.spieleLied();
+        lied_pos=Integer.parseInt(view.getTag().toString());
 
     }
     @Override
