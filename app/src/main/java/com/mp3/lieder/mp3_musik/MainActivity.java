@@ -19,6 +19,7 @@ import android.database.Cursor;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     private ArrayList<Lied> liedListe;
     private Button playbtn, prevbtn;
     private int lied_pos;
-    private boolean pausiert=false, abspielenPausiert=false;
+    private boolean pausiert=false;
 
 
 
@@ -61,51 +62,44 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
         toolbar=findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
+
+
         listViewTitel = findViewById(R.id.lieder_liste);
         liedListe= new ArrayList<Lied>();
 
-        findeLieder();
-        setzeKontroller();
+
 
         Collections.sort(liedListe, new Comparator<Lied>(){
             public int compare(Lied a, Lied b){
                 return a.getTitel().compareTo(b.getTitel());
             }
         });
+
+
+        angecklicktesLied();
+        findeLieder();
         LiedAdapter AnzAdap = new LiedAdapter(liedListe,this);
         listViewTitel.setAdapter(AnzAdap);
+        setzeKontroller();
+
+    }
 
 
-        playbtn=findViewById(R.id.Play);
-        playbtn.setOnClickListener(new View.OnClickListener() {
+    private void angecklicktesLied() {
+        liedListe = new ArrayList<>();
+        listViewTitel = (ListView) findViewById(R.id.lieder_liste);
+
+
+        listViewTitel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                if(absService.spielt()){
-                    absService.pause();
-                    playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.play));
-                }else {
-                    if(absService.getPos()==lied_pos){
-                        start();
-                        playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.pause));
-                    }else if(absService.getPos()!=lied_pos){
-                        absService.waehleLied(lied_pos);
-                        absService.spieleLied();
-                        playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.pause));
-                    }
-                    playbtn.setBackground(ContextCompat.getDrawable(MainActivity.this,R.drawable.pause));
-                    //absService.waehleLied(6);
-                    //absService.spieleLied();
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                }
 
-            }
-        });
+                absService.waehleLied(position);
+                absService.spieleLied();
+                steuerung.show(0);
 
-        prevbtn=findViewById(R.id.Previous);
-        prevbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                spielePrev();
+                if (pausiert) pausiert = false;
             }
         });
     }
@@ -171,9 +165,9 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     public void gewLied(View view){
         absService.waehleLied(Integer.parseInt(view.getTag().toString()));
         absService.spieleLied();
-        if(abspielenPausiert){
+        if(pausiert){
             setzeKontroller();
-            abspielenPausiert=false;
+            pausiert=false;
         }
         lied_pos=Integer.parseInt(view.getTag().toString());
         steuerung.show(0);
@@ -244,13 +238,13 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     protected void onPause(){
         super.onPause();
         pausiert=true;
-        steuerung.show(0);
+
     }
     @Override
     public void pause() {
         absService.pause();
-        abspielenPausiert=true;
-        steuerung.show(0);
+        pausiert=true;
+
 
     }
 
@@ -324,21 +318,21 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     //play next
     private void spieleNext(){
         absService.spieleNext();
-        if(abspielenPausiert){
+        if(pausiert){
             setzeKontroller();
-            abspielenPausiert=false;
+            pausiert=false;
         }
-        steuerung.show(0);
+
     }
 
     //play previous
     private void spielePrev(){
         absService.spielePrev();
-        if(abspielenPausiert){
+        if(pausiert){
             setzeKontroller();
-            abspielenPausiert=false;
+            pausiert=false;
         }
-        steuerung.show(0);
+
     }
 
 

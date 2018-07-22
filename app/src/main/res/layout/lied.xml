@@ -5,7 +5,6 @@
     android:id="@+id/list_items"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:onClick="gewLied"
     android:orientation="vertical"
     android:padding="5dp">
 
