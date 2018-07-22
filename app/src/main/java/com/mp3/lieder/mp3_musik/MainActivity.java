@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     protected void onResume(){
         super.onResume();
         if(pausiert){
-            setzeKontroller();
+
             pausiert=false;
         }
     }
@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     private void spieleNext(){
         absService.spieleNext();
         if(pausiert){
-            setzeKontroller();
+
             pausiert=false;
         }
 
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     private void spielePrev(){
         absService.spielePrev();
         if(pausiert){
-            setzeKontroller();
+
             pausiert=false;
         }
 
