@@ -94,12 +94,13 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+                if (pausiert) pausiert = false;
 
                 absService.waehleLied(position);
                 absService.spieleLied();
                 steuerung.show(0);
 
-                if (pausiert) pausiert = false;
+
             }
         });
     }
