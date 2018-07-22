@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     private Intent absIntent;
     private boolean musikB=false;
 
-    private MusikSteuerung steuerung;
+    private static MusikSteuerung steuerung;
 
 
     @Override
@@ -111,17 +111,19 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
     }
 
 
+
     private ServiceConnection musikCon = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            AbspielenService.MusikBinder bin = (AbspielenService.MusikBinder)service;
+            MusikBinder bin=(MusikBinder) service;
             absService=bin.kriegeService();
             absService.setzeListe(liedListe);
+            musikB=true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-
+        musikB=false;
         }
     };
 
@@ -338,6 +340,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
         }
         steuerung.show(0);
     }
+
 
 
 }

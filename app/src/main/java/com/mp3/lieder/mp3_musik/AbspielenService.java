@@ -51,8 +51,6 @@ public class AbspielenService extends Service implements
             return AbspielenService.this;
         }
     }
-    public AbspielenService() {
-    }
 
     public void spieleLied(){
         player.reset();
