@@ -11,9 +11,10 @@
     <ListView
         android:id="@+id/lieder_liste"
         android:layout_width="match_parent"
-        android:layout_height="333dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolBar">
+        android:layout_below="@+id/toolBar"
+        android:layout_alignParentLeft="true">
 
     </ListView>
 
@@ -27,76 +28,6 @@
     </android.support.v4.widget.NestedScrollView>
 
 
-        <Button
-            android:id="@+id/wechsel_zu_einzel"
-            style="@style/Widget.AppCompat.Button.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/play" />
-    <Button
-        android:id="@+id/Stopp"
-        style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@id/Play"
-        android:layout_alignTop="@id/Play"
-        android:layout_marginRight="150dip"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/stopp" />
-
-    <Button
-        android:id="@+id/Previous"
-        style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/Play"
-        android:layout_alignRight="@id/Play"
-        android:layout_marginRight="60dip"
-        android:background="@drawable/previous" />
-
-    <Button
-        android:id="@+id/Next"
-        style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/Play"
-        android:layout_alignLeft="@id/Play"
-        android:layout_marginLeft="60dip"
-        android:background="@drawable/next" />
-
-    <Button
-        android:id="@+id/Play"
-        style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="130dip"
-        android:background="@drawable/play" />
-
-    <Button
-        android:id="@+id/Shuffle"
-        style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/Play"
-        android:layout_alignRight="@id/Play"
-        android:layout_marginRight="150dip"
-        android:background="@drawable/shuffle" />
-
-    <SeekBar
-        android:id="@+id/music_bar"
-        android:layout_width="230dip"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/Stopp"
-        android:layout_centerHorizontal="true"
-        android:padding="15dip"
-        android:thumbTint="@color/colorPrimary"
-        android:progressTint="@color/colorPrimary"/>
-
     <com.mp3.lieder.mp3_musik.VerticalSeekBar
         android:id="@+id/volume_seekbar"
         android:layout_width="wrap_content"
@@ -104,24 +35,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dip"
         android:layout_centerVertical="true"/>
-
-    <TextView
-        android:id="@+id/tab1_einzel_current_duration"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="0:00"
-        android:layout_alignBottom="@id/music_bar"
-        android:layout_alignLeft="@id/music_bar"
-        />
-
-    <TextView
-        android:id="@+id/tab1_einzel_total_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/music_bar"
-        android:layout_alignRight="@id/music_bar"
-        android:text="0:00"/>
-
 
 
 </RelativeLayout>

@@ -26,7 +26,8 @@
 
         <service android:name=".AbspielenService" />
 
-        <activity android:name=".einzel_wiedergabe"></activity>
+        <activity android:name=".einzel_wiedergabe" />
+        <activity android:name=".Interpreten"></activity>
     </application>
 
 </manifest>

@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
 
     ListView listViewTitel;
     private ArrayList<Lied> liedListe;
-    private Button playbtn, prevbtn;
-    private int lied_pos;
     private boolean pausiert=false;
 
 
@@ -82,6 +80,10 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
         listViewTitel.setAdapter(AnzAdap);
         setzeKontroller();
 
+    }
+
+    public ArrayList<Lied> getLiedliste(){
+        return liedListe;
     }
 
 
@@ -163,19 +165,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
             startService(absIntent);
         }
     }
-    public void gewLied(View view){
-        absService.waehleLied(Integer.parseInt(view.getTag().toString()));
-        absService.spieleLied();
-        if(pausiert){
-            setzeKontroller();
-            pausiert=false;
-        }
-        lied_pos=Integer.parseInt(view.getTag().toString());
-        steuerung.show(0);
 
-
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater=getMenuInflater();
@@ -195,8 +185,12 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
             case R.id.stop:
                 stopService(absIntent);
                 absService=null;
-                System.exit(0);
                 break;
+            case R.id.zu_interpreten:
+                Intent intent=new Intent(MainActivity.this, Interpreten.class);
+                startActivity(intent);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
